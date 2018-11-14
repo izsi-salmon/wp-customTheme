@@ -1,3 +1,82 @@
+/* FONTS */
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Pacifico');
+
 body{
-  background-color: #FFD05E;
+  background-color: #FFB0BD;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.h-heading{
+  font-family: 'Pacifico', cursive;
+}
+
+div.menu-main-menu{
+}
+
+ul.menu{
+  list-style-type: none;
+  display: flex;
+    justify-content: flex-end;
+  margin: auto;
+  width: 80%;
+}
+
+li.menu-item{
+  margin: 0.8em 1.5em;
+}
+
+li.menu-item a, li.menu-item a:link, li.menu-item a:active, li.menu-item a:visited{
+  padding-bottom: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+li.menu-item a:hover{
+  border-bottom: 2px solid #FFF;
+}
+
+.header-image{
+  background-position: center;
+  background-size: cover;
+  height: 30vh;
+  width: 100vw;
+}
+
+.card{
+  margin: 2em auto;
+  width: 60%;
+}
+
+.footer{
+  padding: 3em 0 4em 0;
+  color: #FFF;
+  background-color: #333;
+}
+
+.footer .footer-inner{
+  margin: auto;
+  width: 80%;
+}
+
+.contact-title{
+  font-size: 2em;
+}
+
+.contact-wrapper{
+  margin: 1.2em auto 0 auto;
+  width: 90%;
+}
+
+a.sm{
+  color: #FFF;
+  display: flex;
+    align-items: center;
+  margin: 0 0 0.8em 0;
+  text-decoration: none;
+}
+
+.fab{
+  font-size: 1.3em;
+  margin-right: 0.4em;
 }

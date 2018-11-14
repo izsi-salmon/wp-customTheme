@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <?php wp_head(); ?>
-  </head>
-  <body>
+<?php get_header(); ?>
+
     <div class="container">
       <h1>This is the custom theme :)</h1>
 
@@ -29,6 +23,4 @@
       <?php endif; ?>
     </div>
 
-    <?php wp_footer(); ?>
-  </body>
-</html>
+<?php get_footer(); ?>
