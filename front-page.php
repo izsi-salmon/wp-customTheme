@@ -30,7 +30,7 @@
                 <?php
 
                     $args = array(
-                      'p'= $featuredPostID
+                      'p' => $featuredPostID
                     );
                     $featuredPost = new WP_Query($args);
 
@@ -39,6 +39,7 @@
                  <?php if($featuredPost->have_posts()): $featuredPost->the_post(); ?>
                    <div class="card col-6">
                      <h3><?php the_title(); ?></h3>
+                     <p><?php the_content(); ?></p>
                    </div>
                  <?php endif ?>
 
@@ -49,9 +50,40 @@
           </div>
         </div>
 
+      <?php
+        $total_posts = wp_count_posts()->publish;
+        $can_show = get_option('posts_per_page');
+      ?>
+      <?php if($total_posts > $can_show): ?>
+        <div class="col-12">
+          <hr>
+          <button type="button" name="button" class="btn btn-primay btn-block show-more">Show More</button>
+        </div>
+      <?php endif; ?>
+
+      <?php
+        $paginate_args = array(
+          'type' => 'array'
+        );
+        $all_pages = paginate_links($paginate_args);
+      ?>
+
       <h1 class="h-heading">Welcome</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec metus a orci scelerisque accumsan eget eu elit. In euismod ligula at lorem sagittis ultricies. Vestibulum dui libero, facilisis ut imperdiet at, tincidunt sit amet diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nulla massa, pretium nec dui ac, tristique iaculis lorem. Donec mollis erat sed lacinia placerat. Sed maximus velit ligula, id aliquet nunc euismod eu. Donec at dapibus magna, ut semper ex.</p><p>Quisque eget ornare nisi. In eget elit dictum, viverra leo at, laoreet massa. Mauris et augue dolor. Maecenas non odio mi. Morbi quam magna, aliquam quis urna id, consectetur maximus erat. Suspendisse non augue sed nisl accumsan cursus. Mauris placerat ex eu auctor auctor.</p>
+
+
         <?php if(have_posts()): ?>
+
+          <nav>
+            <ul class="pagination">
+              <?php foreach ($all_pages as $page): ?>
+                <li class="page-item">
+                  <?= str_replace('page-numbers', 'page-link', $page); ?>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </nav>
+
           <?php while(have_posts()): the_post(); ?>
           <div class="col">
             <div class="row">

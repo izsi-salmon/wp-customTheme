@@ -9,6 +9,16 @@ function addCustomThemeStyles(){
   wp_enqueue_script('jquery');
   wp_enqueue_script('bootstrapjs', get_template_directory_uri().'/assets/js/bootstrap.min.js', array(), '4.1.3', true);
   wp_enqueue_script('customscripts', get_template_directory_uri().'/assets/custom-scripts.js', array(), '0.0.1', true);
+
+  global $wp_query;
+
+  wp_localize_script('customscripts', 'load_more', array(
+    'ajax_url' => site_url().'/wp-admin/admin-ajax.php',
+    'query' => json_encode($wp_query->query_vars),
+    // ? inside array means "get this, if you can't, get this instead"
+    'current_page' => get_query_var('paged') ? get_query_var('paged'):1,
+    'max_page' => 4
+  ));
 }
 
 add_action('wp_enqueue_scripts', 'addCustomThemeStyles');
@@ -118,6 +128,24 @@ function add_admin_custom_styles(){
 }
 add_action('admin_enqueue_scripts', 'add_admin_custom_styles');
 
+function ajax_load_more_posts_on_front_page(){
+  $args = json_decode(stripslashes($_POST['query']), true);
+  $args['paged'] = $_POST['page'] + 1; // adding new key & value to array
+  $args['post_status'] = 'publish';
+
+  query_posts($args);
+
+  if(have_posts()):
+    while (have_posts()): the_post();
+      // ERROR IS HERE: looking for content.php but I haven't created one so it returns 0
+      get_template_part('content', get_post_format());
+    endwhile;
+  endif;
+
+}
+
+add_action('wp_ajax_loadmore', 'ajax_load_more_posts_on_front_page');
+add_action('wp_ajax_nopriv_loadmore', 'ajax_load_more_posts_on_front_page');
 
 
 
